@@ -9,7 +9,7 @@ import (
 )
 
 type Config struct {
-	HttpAddr string `yaml:"http_addr`
+	HttpAddr string `yaml:"http_addr"`
 }
 
 func New() *Config {

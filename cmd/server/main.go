@@ -2,7 +2,10 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
+
+	"github.com/HT4w5/api-example/config"
 )
 
 func pingHandler(w http.ResponseWriter, r *http.Request) {
@@ -11,10 +14,14 @@ func pingHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	// Load config.
+	cfg := config.New()
+	cfg.Load()
+
 	http.HandleFunc("/ping", pingHandler)
-	fmt.Println("Starting server on :8080")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		fmt.Println("Error starting server:", err)
+	log.Println("Starting server on " + cfg.HttpAddr)
+	if err := http.ListenAndServe(cfg.HttpAddr, nil); err != nil {
+		log.Println("Error starting server:", err)
 	}
 
 }
